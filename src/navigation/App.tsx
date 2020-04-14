@@ -17,7 +17,7 @@ export default class App extends React.Component<any, State> {
 
   defaultRoute: IRouteMapping =
   {
-    name: 'News',
+    name: 'חדשות',
     path: '/',
     component: News
   };
@@ -45,31 +45,31 @@ export default class App extends React.Component<any, State> {
   }
 
   render() {
-    const theme: Theme = createMuiTheme(this.state.themeOptions);
+    const theme: Theme = createMuiTheme(this.state.themeOptions, heIL);
 
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline/>
         <div dir="rtl">
-        <BrowserRouter>
+          <BrowserRouter>
 
-          <NavigationBar mappings={this.routes}
-                         oppositeThemeType={this.oppositeThemeType.bind(this)}
-                         toggleDarkMode={this.toggleThemeOptions.bind(this)} />
+            <NavigationBar mappings={this.routes}
+                           oppositeThemeType={this.oppositeThemeType.bind(this)}
+                           toggleDarkMode={this.toggleThemeOptions.bind(this)} />
 
-          <Switch>
-              <Route
-                exact
-                path={this.defaultRoute.path}
-                render={renderProps => <Component mapping={this.defaultRoute} {...renderProps} /> } />
+            <Switch>
+                <Route
+                  exact
+                  path={this.defaultRoute.path}
+                  render={renderProps => <Component mapping={this.defaultRoute} {...renderProps} /> } />
 
-              {
-                this.routes.map((mapping, index) => <ComponentRoute key={index} mapping={mapping} />)
-              }
+                {
+                  this.routes.map((mapping, index) => <ComponentRoute key={index} mapping={mapping} />)
+                }
 
-          </Switch>
+            </Switch>
 
-        </BrowserRouter>
+          </BrowserRouter>
         </div>
       </MuiThemeProvider>
     );

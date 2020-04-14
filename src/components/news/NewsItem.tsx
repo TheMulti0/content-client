@@ -42,7 +42,7 @@ export default function NewsItem(props: {item: INewsItem}) {
         title={ item.author.name } />
 
       <Typography className="date" color="textSecondary" variant="h6">
-        { getDate() } בשעה { getTime() }
+        { getDate() }, בשעה { getTime() }
       </Typography>
 
       <CardContent>
