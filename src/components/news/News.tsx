@@ -22,7 +22,7 @@ export default class News extends React.Component<any, State> {
   }
 
   async componentDidMount() {
-    const items: INewsItem[] = await this.newsService.getNews(10, NewsProviderType.MakoReporters);
+    const items: INewsItem[] = await this.newsService.getNews(10, [ NewsProviderType.MakoReporters ], [ NewsProviderType.KanNews ]);
     this.setState({ items })
   }
 
