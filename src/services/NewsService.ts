@@ -12,13 +12,11 @@ export class NewsService {
 
   getNews(
     maxResults: number,
-    includedTypes: NewsProviderType[],
     excludedTypes: NewsProviderType[]
   ): Promise<INewsItem[]> {
 
     const params = this.getParams(
       maxResults,
-      includedTypes,
       excludedTypes);
 
     return this.rest
@@ -33,13 +31,11 @@ export class NewsService {
 
   private getParams(
     maxResults: number,
-    includedTypes: NewsProviderType[],
     excludedTypes: NewsProviderType[]
   ) {
     let params: { [name: string]: any } = {};
 
     params['maxResults'] = maxResults;
-    params['includedTypes'] = this.toValues(includedTypes)
     params['excludedTypes'] = this.toValues(excludedTypes)
 
     return params;
