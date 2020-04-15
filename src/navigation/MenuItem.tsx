@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     height: '64px',
     width: 100,
     // marginRight: '1rem !important',
-    '&:hover, &:focusVisible': {
+    '&:hover, &$focusVisible': {
       zIndex: 1,
       '& $imageButton': {
         backgroundColor: theme.palette.action.hover
@@ -43,7 +43,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.palette.background.default,
     transition: theme.transitions.create('background-color', {duration:250})
   },
   imageButtonSelected: {
