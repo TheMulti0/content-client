@@ -48,9 +48,14 @@ export default function NewsItem(props: {item: INewsItem}) {
       <CardContent>
 
         <Typography className="content">
-          <a href={item.url}>
-            { item.description }
-          </a>
+          { item.description }
+          <br />
+          { item.url !== null &&
+            <a href={item.url}>
+              לכתבה המלאה
+            </a>
+          }
+
         </Typography>
 
       </CardContent>
