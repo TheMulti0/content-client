@@ -10,9 +10,12 @@ export class NewsService {
     this.rest = new RestClient(null, this.baseUrl);
   }
 
-  getNews(...providerTypes: NewsProviderType[]): Promise<INewsItem[]> {
+  getNews(
+    maxResults: number,
+    ...providerTypes: NewsProviderType[]
+  ): Promise<INewsItem[]> {
 
-    let params = this.getParams(providerTypes);
+    const params = this.getParams(maxResults, providerTypes);
 
     return this.rest
       .get<INewsItem[]>('/news', { queryParameters: { params } })
@@ -24,9 +27,13 @@ export class NewsService {
       })
   }
 
-  private getParams(providerTypes: NewsProviderType[]) {
-    let params: { [name: string]: string[] } = {};
+  private getParams(
+    maxResults: number,
+    providerTypes: NewsProviderType[]
+  ) {
+    let params: { [name: string]: any } = {};
 
+    params['maxResults'] = maxResults;
     params['providerTypes'] = this.toValues(providerTypes)
 
     return params;
