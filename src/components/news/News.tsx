@@ -1,8 +1,10 @@
+import './News.css';
 import React from 'react';
+
 import { NewsService } from "../../services/NewsService";
 import { INewsItem } from "../../models/INewsItem";
 import NewsItem from "./NewsItem";
-import { Grid } from '@material-ui/core';
+import { Backdrop, CircularProgress, Grid } from '@material-ui/core';
 
 interface State {
   items: INewsItem[];
@@ -26,6 +28,11 @@ export default class News extends React.Component<any, State> {
   render() {
     return (
       <div>
+
+        <Backdrop className="backdrop" open={this.state.items.length === 0}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+
         <Grid container spacing={2}>
           {
             this.state.items.map(GridNewsItem)
