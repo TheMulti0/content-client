@@ -34,7 +34,7 @@ export default class News extends React.Component<any, State> {
           <CircularProgress color="inherit" />
         </Backdrop>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={2} className="center">
           {
             this.state.items.map(GridNewsItem)
           }

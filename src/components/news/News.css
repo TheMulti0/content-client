@@ -1,3 +1,7 @@
 .backdrop {
     z-index: 10;
 }
+
+.center {
+    justify-content: center;
+}
