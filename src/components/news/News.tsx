@@ -36,19 +36,11 @@ export default class News extends React.Component<any, State> {
 
         <Grid container spacing={2} className="center">
           {
-            this.state.items.map(GridNewsItem)
+            this.state.items.map((item, index) => <NewsItem item={item} key={index} index={index} />)
           }
         </Grid>
 
       </div>
     );
-
-    function GridNewsItem(item: INewsItem, index: number) {
-      return (
-        <Grid item key={index}>
-          <NewsItem item={item}/>
-        </Grid>
-      );
-    }
   }
 }
