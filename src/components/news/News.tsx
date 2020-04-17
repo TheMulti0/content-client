@@ -5,7 +5,7 @@ import { NewsService } from "../../services/NewsService";
 import { INewsItem } from "../../models/INewsItem";
 import NewsItem from "./NewsItem";
 import { Backdrop, Box, CircularProgress, Divider, Grid, List } from '@material-ui/core';
-import { NewsSource } from "../../models/NewsProviderType";
+import { NewsSource } from "../../models/NewsSource";
 
 interface State {
   items: INewsItem[];
