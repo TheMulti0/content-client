@@ -1,7 +1,7 @@
 import './NewsItem.css';
 import React from 'react';
 
-import { Typography, Grid, ListItem, Avatar } from "@material-ui/core";
+import { Typography, Grid, ListItem } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
 
 interface Props {
@@ -26,13 +26,13 @@ export default class NewsItem extends React.Component<Props> {
     return (
       <ListItem>
 
-        <Grid container direction="column" spacing={ 2 }>
+        <Grid container direction="column" spacing={ 1 }>
 
           <Grid item container direction="row" alignItems="center">
 
             <img src={ this.item.author.imageUrl } className="avatar" />
 
-            <Typography color="textSecondary" className="author">
+            <Typography variant="body2" color="textSecondary" className="author">
               { this.item.author.name }
             </Typography>
 
@@ -44,20 +44,16 @@ export default class NewsItem extends React.Component<Props> {
               <img src={ this.item.imageUrl } alt={ this.item.title } className="image"/>
             </Grid>
 
-            <Grid item xs container direction="column" spacing={ 2 } className="text-right" justify="space-evenly">
+            <Grid item xs container direction="column" spacing={ 1 } className="text-right" justify="space-between">
 
               <Grid item>
-                <Typography gutterBottom variant="h5">
+                <Typography gutterBottom variant="h6">
                   { this.item.title }
                 </Typography>
               </Grid>
 
               <Grid item>
                 <Typography variant="body2" gutterBottom>
-
-                  { this.item.description }
-
-                  <br/>
 
                   {
                     this.item.url != null &&
