@@ -1,7 +1,7 @@
 import './NewsItem.css';
 import React from 'react';
 
-import { Card, CardHeader, CardContent, Typography, CardMedia, Grid, Box, Divider, ListItem } from "@material-ui/core";
+import { Typography, Grid, ListItem, Avatar } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
 
 interface Props {
@@ -26,42 +26,56 @@ export default class NewsItem extends React.Component<Props> {
     return (
       <ListItem>
 
-        <Grid container spacing={ 3 } justify="flex-end" className="item">
+        <Grid container direction="column" spacing={ 2 }>
 
-          <Grid item>
-            <img src={ this.item.imageUrl } alt={ this.item.title } className="image" />
+          <Grid item container direction="row" alignItems="center">
+
+            <Avatar src={ this.item.author.imageUrl } />
+
+            <Typography color="textSecondary" className="author">
+              { this.item.author.name }
+            </Typography>
+
           </Grid>
 
-          <Grid item xs container direction="column" spacing={ 2 } className="text-right" justify="space-evenly">
+          <Grid item container spacing={ 3 } justify="flex-end">
 
             <Grid item>
-              <Typography gutterBottom variant="h5">
-                { this.item.title }
-              </Typography>
+              <img src={ this.item.imageUrl } alt={ this.item.title } className="image"/>
             </Grid>
 
-            <Grid item>
-              <Typography variant="body2" gutterBottom>
+            <Grid item xs container direction="column" spacing={ 2 } className="text-right" justify="space-evenly">
 
-                { this.item.description }
+              <Grid item>
+                <Typography gutterBottom variant="h5">
+                  { this.item.title }
+                </Typography>
+              </Grid>
 
-                <br />
+              <Grid item>
+                <Typography variant="body2" gutterBottom>
 
-                {
-                  this.item.url != null &&
-                  <a href={this.item.url}>
-                    לכתבה המלאה
-                  </a>
-                }
+                  { this.item.description }
+
+                  <br/>
+
+                  {
+                    this.item.url != null &&
+                    <a href={ this.item.url }>
+                      לכתבה המלאה
+                    </a>
+                  }
 
 
-              </Typography>
-            </Grid>
+                </Typography>
+              </Grid>
 
-            <Grid item>
-              <Typography variant="caption" color="textSecondary">
-                { this.getDate() }, בשעה { this.getTime() }
-              </Typography>
+              <Grid item>
+                <Typography variant="caption" color="textSecondary">
+                  { this.getDate() }, בשעה { this.getTime() }
+                </Typography>
+              </Grid>
+
             </Grid>
 
           </Grid>
