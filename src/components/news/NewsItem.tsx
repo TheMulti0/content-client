@@ -10,12 +10,35 @@ interface Props {
   index: number;
 }
 
+interface SourceBadge {
+  name: string;
+  color: string;
+}
+
 export default class NewsItem extends React.Component<Props> {
 
-  private newsSourceNames: Map<NewsProviderType, string> = new Map<NewsProviderType, string>([
-    [NewsProviderType.Mako, 'מאקו'],
-    [NewsProviderType.MakoReporters, 'כתבי N12'],
-    [NewsProviderType.KanNews, 'כאן']
+  private newsSources: Map<NewsProviderType, SourceBadge> = new Map<NewsProviderType, SourceBadge>([
+    [
+      NewsProviderType.Mako,
+      {
+        name: 'מאקו',
+        color: '#e83727'
+      }
+    ],
+    [
+      NewsProviderType.MakoReporters,
+      {
+        name: 'כתבי N12',
+        color: '#e83727'
+      }
+    ],
+    [
+      NewsProviderType.KanNews,
+      {
+        name: 'כאן',
+        color: '#616161'
+      }
+    ]
   ]);
 
   private item: INewsItem;
@@ -30,10 +53,12 @@ export default class NewsItem extends React.Component<Props> {
 
   render() {
 
+    const badge = this.newsSources.get(this.item.source);
+
     return (
       <ListItem>
 
-        <Grid container direction="column" className="text-right">
+        <Grid container direction="column" spacing={ 1 } className="text-right">
 
           <Grid item container direction="row" alignItems="center">
 
@@ -53,9 +78,15 @@ export default class NewsItem extends React.Component<Props> {
 
             <Grid item xs container direction="column" spacing={ 1 } className="text-right" justify="space-between">
 
-              <Grid item>
-                <Chip label={ this.newsSourceNames.get(this.item.source) }/>
-              </Grid>
+              {
+                badge !== undefined &&
+                <Grid item>
+                  <Chip
+                    label={ badge.name }
+                    style={{ backgroundColor: badge.color }} />
+                </Grid>
+              }
+
 
               <Grid item>
                 <Typography gutterBottom variant="h6">
@@ -72,7 +103,6 @@ export default class NewsItem extends React.Component<Props> {
                       לכתבה המלאה
                     </a>
                   }
-
 
                 </Typography>
               </Grid>

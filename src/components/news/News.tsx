@@ -38,8 +38,8 @@ export default class News extends React.Component<any, State> {
           {
             this.state.items.map((item, index) => {
               return (
-                <Box>
-                  <NewsItem item={ item } key={ index } index={ index } />
+                <Box key={ index }>
+                  <NewsItem item={ item } index={ index } />
                   <br />
                   <Divider />
                   <br />
