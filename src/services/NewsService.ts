@@ -1,6 +1,6 @@
 import { INewsItem } from "../models/INewsItem";
-import { NewsProviderType } from "../models/NewsProviderType";
 import { RestClient } from "typed-rest-client/RestClient";
+import { NewsSource } from "../models/NewsSource";
 
 export class NewsService {
   private readonly baseUrl = 'http://localhost:5000';
@@ -12,12 +12,12 @@ export class NewsService {
 
   getNews(
     maxResults: number,
-    excludedTypes: NewsProviderType[]
+    excludedSources: NewsSource[]
   ): Promise<INewsItem[]> {
 
     const params = this.getParams(
       maxResults,
-      excludedTypes);
+      excludedSources);
 
     return this.rest
       .get<INewsItem[]>('/news', { queryParameters: { params } })
@@ -31,20 +31,20 @@ export class NewsService {
 
   private getParams(
     maxResults: number,
-    excludedTypes: NewsProviderType[]
+    excludedSources: NewsSource[]
   ) {
     let params: { [name: string]: any } = {};
 
     params['maxResults'] = maxResults;
-    params['excludedTypes'] = this.toValues(excludedTypes)
+    params['excludedSources'] = this.toValues(excludedSources)
 
     return params;
   }
 
-  toValues(providerTypes: NewsProviderType[]) {
+  toValues(providerTypes: NewsSource[]) {
     const items: string[] = [];
     for (let i of providerTypes) {
-      items.push(NewsProviderType[i]);
+      items.push(NewsSource[i]);
     }
     return items;
   }

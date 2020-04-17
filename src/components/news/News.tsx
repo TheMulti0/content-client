@@ -5,7 +5,7 @@ import { NewsService } from "../../services/NewsService";
 import { INewsItem } from "../../models/INewsItem";
 import NewsItem from "./NewsItem";
 import { Backdrop, Box, CircularProgress, Divider, Grid, List } from '@material-ui/core';
-import { NewsProviderType } from "../../models/NewsProviderType";
+import { NewsSource } from "../../models/NewsProviderType";
 
 interface State {
   items: INewsItem[];
@@ -22,7 +22,7 @@ export default class News extends React.Component<any, State> {
   }
 
   async componentDidMount() {
-    const items: INewsItem[] = await this.newsService.getNews(50, [ NewsProviderType.MakoReporters ]);
+    const items: INewsItem[] = await this.newsService.getNews(50, [ NewsSource.MakoReporters ]);
     this.setState({ items })
   }
 

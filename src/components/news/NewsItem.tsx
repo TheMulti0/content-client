@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Chip, Grid, ListItem, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
-import { NewsProviderType } from "../../models/NewsProviderType";
+import { NewsSource } from "../../models/NewsSource";
 
 interface Props {
   item: INewsItem;
@@ -17,23 +17,23 @@ interface SourceBadge {
 
 export default class NewsItem extends React.Component<Props> {
 
-  private newsSources: Map<NewsProviderType, SourceBadge> = new Map<NewsProviderType, SourceBadge>([
+  private newsSources: Map<NewsSource, SourceBadge> = new Map<NewsSource, SourceBadge>([
     [
-      NewsProviderType.Mako,
+      NewsSource.Mako,
       {
         name: 'מאקו',
         color: '#e83727'
       }
     ],
     [
-      NewsProviderType.MakoReporters,
+      NewsSource.MakoReporters,
       {
         name: 'כתבי N12',
         color: '#e83727'
       }
     ],
     [
-      NewsProviderType.KanNews,
+      NewsSource.KanNews,
       {
         name: 'כאן',
         color: '#616161'

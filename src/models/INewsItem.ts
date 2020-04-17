@@ -1,8 +1,8 @@
 import { IAuthor } from "./IAuthor";
-import { NewsProviderType } from "./NewsProviderType";
+import { NewsSource } from "./NewsProviderType";
 
 export interface INewsItem {
-  source: NewsProviderType;
+  source: NewsSource;
   title: string;
   description: string;
   author: IAuthor;

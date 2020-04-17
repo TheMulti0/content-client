@@ -1,4 +1,4 @@
-export enum NewsProviderType {
+export enum NewsSource {
   Mako,
   MakoReporters,
   KanNews
