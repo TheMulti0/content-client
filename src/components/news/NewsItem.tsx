@@ -30,7 +30,7 @@ export default class NewsItem extends React.Component<Props> {
 
           <Grid item container direction="row" alignItems="center">
 
-            <Avatar src={ this.item.author.imageUrl } />
+            <img src={ this.item.author.imageUrl } className="avatar" />
 
             <Typography color="textSecondary" className="author">
               { this.item.author.name }

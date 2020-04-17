@@ -34,7 +34,7 @@ export default class News extends React.Component<any, State> {
           <CircularProgress color="inherit" />
         </Backdrop>
 
-        <List>
+        <List className="news">
           {
             this.state.items.map((item, index) => {
               return (
