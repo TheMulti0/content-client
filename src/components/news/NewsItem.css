@@ -1,10 +1,10 @@
-img {
-    width: 32px;
-    height: 32px;
+.image {
+    max-width: 200pt;
 }
-
-.card {
-
+@media (max-width: 500pt) {
+    .image {
+        max-width: 100%;
+    }
 }
 
 .date {

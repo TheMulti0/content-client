@@ -4,7 +4,7 @@ import React from 'react';
 import { NewsService } from "../../services/NewsService";
 import { INewsItem } from "../../models/INewsItem";
 import NewsItem from "./NewsItem";
-import { Backdrop, CircularProgress, Grid } from '@material-ui/core';
+import { Backdrop, Box, CircularProgress, Divider, Grid, List } from '@material-ui/core';
 import { NewsProviderType } from "../../models/NewsProviderType";
 
 interface State {
@@ -22,7 +22,7 @@ export default class News extends React.Component<any, State> {
   }
 
   async componentDidMount() {
-    const items: INewsItem[] = await this.newsService.getNews(50, [ ]);
+    const items: INewsItem[] = await this.newsService.getNews(50, [ NewsProviderType.MakoReporters ]);
     this.setState({ items })
   }
 
@@ -34,11 +34,19 @@ export default class News extends React.Component<any, State> {
           <CircularProgress color="inherit" />
         </Backdrop>
 
-        <Grid container spacing={2} className="center">
+        <List>
           {
-            this.state.items.map((item, index) => <NewsItem item={item} key={index} index={index} />)
+            this.state.items.map((item, index) => {
+              return (
+                <Box>
+                  <Divider></Divider>
+                  <NewsItem item={ item } key={ index } index={ index } />
+                </Box>
+              );
+            })
           }
-        </Grid>
+        </List>
+
 
       </div>
     );

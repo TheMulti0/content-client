@@ -1,7 +1,7 @@
 import './NewsItem.css';
 import React from 'react';
 
-import { Card, CardHeader, CardContent, Typography, CardMedia, Grid } from "@material-ui/core";
+import { Card, CardHeader, CardContent, Typography, CardMedia, Grid, Box, Divider, ListItem } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
 
 interface Props {
@@ -13,75 +13,66 @@ export default class NewsItem extends React.Component<Props> {
 
   private item: INewsItem;
   private index: number;
-  private spacing: any;
-  private style: any;
 
   constructor(props: Props) {
     super(props);
 
     this.item = this.props.item;
     this.index = this.props.index;
-
-    if (this.index === 0) {
-      this.spacing = 12;
-    }
-    else if (this.index === 1 || this.index === 2) {
-      this.spacing = 6;
-    }
-    else {
-      this.spacing = "auto";
-      this.style = {
-        width: '250pt',
-        maxWidth: '600pt',
-        maxHeight: '600pt'
-      }
-    }
   }
 
   render() {
 
     return (
-      <Grid item sm={this.spacing} style={this.style} className="card">
-        <Card
-              variant="elevation">
+      <ListItem>
 
-          <CardHeader
-            avatar={ <img src={ this.item.author.imageUrl } alt=""/> }
-            title={ this.item.author.name }/>
+        <Grid container spacing={ 3 } justify="flex-end" className="item">
 
-          <Typography className="date" color="textSecondary" variant="h6">
-            { this.getDate() }, בשעה { this.getTime() }
-          </Typography>
+          <Grid item>
+            <img src={ this.item.imageUrl } alt={ this.item.title } className="image" />
+          </Grid>
 
-          <CardContent>
+          <Grid item xs container direction="column" spacing={ 2 } className="text-right" justify="space-evenly">
 
-            <Typography className="content">
-              { this.item.description }
+            <Grid item>
+              <Typography gutterBottom variant="h5">
+                { this.item.title }
+              </Typography>
+            </Grid>
 
-              <br/>
+            <Grid item>
+              <Typography variant="body2" gutterBottom>
 
-              {
-                this.item.url !== null
-                &&
-                <a href={ this.item.url }>
-                  לכתבה המלאה
-                </a>
-              }
+                { this.item.description }
 
-            </Typography>
+                <br />
 
-          </CardContent>
+                {
+                  this.item.url != null &&
+                  <a href={this.item.url}>
+                    לכתבה המלאה
+                  </a>
+                }
 
-          {
-            this.item.imageUrl !== null &&
-            <CardMedia
-              style={ { height: 0, paddingTop: '56.25%' } }
-              image={ this.item.imageUrl }/>
-          }
 
-        </Card>
-      </Grid>
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <Typography variant="caption" color="textSecondary">
+                { this.getDate() }, בשעה { this.getTime() }
+              </Typography>
+            </Grid>
+
+          </Grid>
+
+        </Grid>
+
+      </ListItem>
     );
+  }
+
+  getImageStyle(): any {
   }
 
   getDate(): string {
