@@ -1,8 +1,9 @@
 import './NewsItem.css';
 import React from 'react';
 
-import { Typography, Grid, ListItem } from "@material-ui/core";
+import { Chip, Grid, ListItem, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
+import { NewsProviderType } from "../../models/NewsProviderType";
 
 interface Props {
   item: INewsItem;
@@ -10,6 +11,12 @@ interface Props {
 }
 
 export default class NewsItem extends React.Component<Props> {
+
+  private newsSourceNames: Map<NewsProviderType, string> = new Map<NewsProviderType, string>([
+    [NewsProviderType.Mako, 'מאקו'],
+    [NewsProviderType.MakoReporters, 'כתבי N12'],
+    [NewsProviderType.KanNews, 'כאן']
+  ]);
 
   private item: INewsItem;
   private index: number;
@@ -26,11 +33,11 @@ export default class NewsItem extends React.Component<Props> {
     return (
       <ListItem>
 
-        <Grid container direction="column" spacing={ 1 }>
+        <Grid container direction="column" className="text-right">
 
           <Grid item container direction="row" alignItems="center">
 
-            <img src={ this.item.author.imageUrl } className="avatar" />
+            <img src={ this.item.author.imageUrl } className="avatar"/>
 
             <Typography variant="body2" color="textSecondary" className="author">
               { this.item.author.name }
@@ -45,6 +52,10 @@ export default class NewsItem extends React.Component<Props> {
             </Grid>
 
             <Grid item xs container direction="column" spacing={ 1 } className="text-right" justify="space-between">
+
+              <Grid item>
+                <Chip label={ this.newsSourceNames.get(this.item.source) }/>
+              </Grid>
 
               <Grid item>
                 <Typography gutterBottom variant="h6">
@@ -80,9 +91,6 @@ export default class NewsItem extends React.Component<Props> {
 
       </ListItem>
     );
-  }
-
-  getImageStyle(): any {
   }
 
   getDate(): string {
