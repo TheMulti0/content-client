@@ -3,6 +3,7 @@ import React from 'react';
 import { Chip } from "@material-ui/core";
 import { NewsSource } from "../../models/NewsSource";
 import { SourceBadge } from "../../models/SourceBadge";
+import { ISourceConsumerProps } from "./ISourceConsumerProps";
 
 const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, SourceBadge>([
   [
@@ -28,7 +29,7 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
   ]
 ]);
 
-export default function SourceChip(props: { source: NewsSource }) {
+export default function SourceChip(props: ISourceConsumerProps) {
 
   const badge: SourceBadge | undefined = newsSourceBadges.get(props.source);
   if (badge === undefined) {

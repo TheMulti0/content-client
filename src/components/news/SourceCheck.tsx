@@ -4,9 +4,9 @@ import { Grid, Switch } from "@material-ui/core";
 import SourceChip from "./SourceChip";
 import { INewsFacade } from "./INewsFacade";
 import React from "react";
+import { ISourceConsumerProps } from "./ISourceConsumerProps";
 
-interface Props extends IFacadeConsumerProps {
-  source: NewsSource
+interface Props extends IFacadeConsumerProps, ISourceConsumerProps {
 }
 
 export default function SourceCheck(props: Props) {
