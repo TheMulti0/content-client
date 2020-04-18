@@ -1,9 +1,9 @@
 import { Box, Divider, List } from "@material-ui/core";
 import React from "react";
 import { INewsItem } from "../../models/INewsItem";
-import NewsItem from "./NewsItem";
+import Item from "./Item";
 
-export default function NewsItems(props: { items: INewsItem[] }) {
+export default function Items(props: { items: INewsItem[] }) {
   const { items } = props;
 
   return (
@@ -18,7 +18,7 @@ export default function NewsItems(props: { items: INewsItem[] }) {
 function StyledNewsItem(item: INewsItem, index: number) {
   return (
     <Box key={ index }>
-      <NewsItem item={ item }/>
+      <Item item={ item }/>
       <br/>
       <Divider/>
       <br/>

@@ -1,16 +1,16 @@
-import './NewsItem.css';
+import './Item.css';
 import React from 'react';
 
 import { Grid, ListItem, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
 import { IAuthor } from "../../models/IAuthor";
-import NewsSourceBadge from "./NewsSourceBadge";
+import SourceChip from './SourceChip';
 
 interface Props {
   item: INewsItem;
 }
 
-export default class NewsItem extends React.Component<Props> {
+export default class Item extends React.Component<Props> {
 
   render() {
 
@@ -46,7 +46,7 @@ export default class NewsItem extends React.Component<Props> {
             <Grid item xs container direction="column" className="text-right" justify="space-between">
 
               <Grid item>
-                <NewsSourceBadge source={ item.source } />
+                <SourceChip source={ item.source } />
               </Grid>
 
 

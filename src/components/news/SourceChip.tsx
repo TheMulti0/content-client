@@ -1,4 +1,3 @@
-import './NewsItem.css';
 import React from 'react';
 
 import { Chip } from "@material-ui/core";
@@ -29,7 +28,7 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
   ]
 ]);
 
-export default function NewsSourceBadge(props: { source: NewsSource }) {
+export default function SourceChip(props: { source: NewsSource }) {
 
   const badge: SourceBadge | undefined = newsSourceBadges.get(props.source);
   if (badge === undefined) {
@@ -37,8 +36,8 @@ export default function NewsSourceBadge(props: { source: NewsSource }) {
   }
 
   return (
-      <Chip
-        label={ badge.name }
-        style={ { backgroundColor: badge.color, color: '#ffffff' } }/>
+    <Chip
+      label={ badge.name }
+      style={ { backgroundColor: badge.color, color: '#ffffff' } }/>
   );
 }

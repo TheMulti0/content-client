@@ -1,7 +1,7 @@
 import { IFacadeConsumerProps } from "./IFacadeConsumerProps";
 import { NewsSource } from "../../models/NewsSource";
 import { Grid, Switch } from "@material-ui/core";
-import NewsSourceBadge from "./NewsSourceBadge";
+import SourceChip from "./SourceChip";
 import { INewsFacade } from "./INewsFacade";
 import React from "react";
 
@@ -9,7 +9,7 @@ interface Props extends IFacadeConsumerProps {
   source: NewsSource
 }
 
-export default function NewsSourceCheck(props: Props) {
+export default function SourceCheck(props: Props) {
   const { facade, source } = props;
 
   return (
@@ -18,7 +18,7 @@ export default function NewsSourceCheck(props: Props) {
       <Switch
         onChange={ (event: any, checked: boolean) => onSourceCheckClick(facade, source, checked) }/>
 
-      <NewsSourceBadge source={ source }/>
+      <SourceChip source={ source }/>
 
     </Grid>
   );

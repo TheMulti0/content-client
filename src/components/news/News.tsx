@@ -6,9 +6,9 @@ import { INewsItem } from "../../models/INewsItem";
 import { Backdrop, Box, CircularProgress, Grid } from '@material-ui/core';
 import { NewsSource } from "../../models/NewsSource";
 import { Subscription } from "rxjs";
-import NewsItems from "./NewsItems";
 import { INewsFacade } from "./INewsFacade";
 import SourceControl from "./SourceControl";
+import Items from './Items';
 
 interface NewsConsumerState {
   excludedSources: NewsSource[];
@@ -74,7 +74,7 @@ export default class News extends React.Component<any, NewsConsumerState> implem
           </Grid>
 
           <Grid item>
-            <NewsItems items={ this.state.items }/>
+            <Items items={ this.state.items }/>
           </Grid>
 
         </Grid>
