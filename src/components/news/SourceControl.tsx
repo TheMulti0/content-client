@@ -1,6 +1,6 @@
 import React from "react";
 import { NewsSource } from "../../models/NewsSource";
-import { Paper } from "@material-ui/core";
+import { Box, Paper } from "@material-ui/core";
 import { EnumValues } from "enum-values";
 import { IFacadeConsumerProps } from "./IFacadeConsumerProps";
 import SourceCheck from "./SourceCheck";
@@ -10,18 +10,18 @@ export default function SourceControl(props: IFacadeConsumerProps) {
   const sources = getNewsSources();
 
   return (
-    <Paper>
+    <Box>
       {
         sources.map((source, index) => {
           return (
             <SourceCheck
               key={ index }
               facade={ facade }
-              source={ source } />
+              source={ source }/>
           );
         })
       }
-    </Paper>
+    </Box>
   );
 }
 

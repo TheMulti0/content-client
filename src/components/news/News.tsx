@@ -61,13 +61,13 @@ export default class News extends React.Component<any, NewsConsumerState> implem
 
   render() {
     return (
-      <Box>
+      <Box className="p-2">
 
         <Backdrop className="backdrop" open={ this.state.items.length === 0 }>
           <CircularProgress color="inherit"/>
         </Backdrop>
 
-        <Grid container direction="row">
+        <Grid container direction="row" spacing={ 2 }>
 
           <Grid item>
             <SourceControl facade={ this }/>
