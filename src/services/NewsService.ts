@@ -12,24 +12,18 @@ export class NewsService {
     excludedSources: NewsSource[]
   ): Observable<INewsItem[]> {
 
-    const params = NewsService.getParams(
-      maxResults,
-      excludedSources);
+    const params = this.getParams(maxResults, excludedSources);
 
     return axios
-      .get<INewsItem[]>(`${this.baseUrl}/news`, { params, headers: {'Content-Type': 'application/json'} })
-      .pipe(map(response => response.data))
+      .get<INewsItem[]>(`${this.baseUrl}/news`, { params: params })
+      .pipe(
+        map(response => response.data))
   }
 
-  private static getParams(
-    maxResults: number,
-    excludedSources: NewsSource[]
-  ) {
-    let params: { [name: string]: any } = {};
-
-    params['maxResults'] = maxResults;
-    params['excludedSources'] = JSON.stringify(excludedSources);
-
-    return params;
+  private getParams(maxResults: number, excludedSources: NewsSource[]) {
+    return {
+      maxResults: maxResults,
+      excludedSources: JSON.stringify(excludedSources)
+    };
   }
 }
