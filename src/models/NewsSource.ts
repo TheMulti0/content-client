@@ -1,5 +1,5 @@
 export enum NewsSource {
-  Mako,
-  MakoReporters,
-  KanNews
+  Mako = "Mako",
+  MakoReporters = "MakoReporters",
+  KanNews = "KanNews"
 }

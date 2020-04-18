@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { INewsItem } from "../models/INewsItem";
 import { NewsSource } from "../models/NewsSource";
+import { EnumValues } from "enum-values";
 
 export class NewsService {
   private readonly baseUrl = 'http://localhost:5000';
@@ -10,7 +11,7 @@ export class NewsService {
     excludedSources: NewsSource[]
   ): Promise<INewsItem[]> {
 
-    const params = this.getParams(
+    const params = NewsService.getParams(
       maxResults,
       excludedSources);
 
@@ -19,23 +20,15 @@ export class NewsService {
       .then((value: AxiosResponse<INewsItem[]>) => value.data);
   }
 
-  private getParams(
+  private static getParams(
     maxResults: number,
     excludedSources: NewsSource[]
   ) {
     let params: { [name: string]: any } = {};
 
     params['maxResults'] = maxResults;
-    params['excludedSources'] = this.toValues(excludedSources);
+    params['excludedSources'] = excludedSources;
 
     return params;
-  }
-
-  toValues(providerTypes: NewsSource[]) {
-    const items: string[] = [];
-    for (let i of providerTypes) {
-      items.push(NewsSource[i]);
-    }
-    return items;
   }
 }

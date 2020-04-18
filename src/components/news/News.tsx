@@ -43,8 +43,8 @@ export default class News extends React.Component<any, State> {
 
   render() {
     const sources: NewsSource[] = EnumValues
-      .getNames(NewsSource)
-      .map((name: string) => NewsSource[name as keyof typeof NewsSource]);
+      .getValues<string>(NewsSource)
+      .map(value => value as NewsSource)
 
     return (
       <Box>
