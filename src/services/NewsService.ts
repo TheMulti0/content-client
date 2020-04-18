@@ -1,7 +1,8 @@
-import axios, { AxiosResponse } from 'axios';
+import axios  from 'axios-observable';
 import { INewsItem } from "../models/INewsItem";
 import { NewsSource } from "../models/NewsSource";
-import { EnumValues } from "enum-values";
+import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 export class NewsService {
   private readonly baseUrl = 'http://localhost:5000';
@@ -9,15 +10,15 @@ export class NewsService {
   getNews(
     maxResults: number,
     excludedSources: NewsSource[]
-  ): Promise<INewsItem[]> {
+  ): Observable<INewsItem[]> {
 
     const params = NewsService.getParams(
       maxResults,
       excludedSources);
 
     return axios
-      .get<INewsItem[]>(`${this.baseUrl}/news`, { params })
-      .then((value: AxiosResponse<INewsItem[]>) => value.data);
+      .get<INewsItem[]>(`${this.baseUrl}/news`, { params, headers: {'Content-Type': 'application/json'} })
+      .pipe(map(response => response.data))
   }
 
   private static getParams(
@@ -27,7 +28,7 @@ export class NewsService {
     let params: { [name: string]: any } = {};
 
     params['maxResults'] = maxResults;
-    params['excludedSources'] = excludedSources;
+    params['excludedSources'] = JSON.stringify(excludedSources);
 
     return params;
   }

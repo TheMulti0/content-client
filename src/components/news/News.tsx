@@ -8,9 +8,11 @@ import { Backdrop, Box, CircularProgress, Divider, Grid, List, Paper, Switch } f
 import { NewsSource } from "../../models/NewsSource";
 import NewsSourceBadge from "./NewsSourceBadge";
 import { EnumValues } from "enum-values";
+import { Subscription } from "rxjs";
 
 interface State {
   excludedSources: NewsSource[];
+  itemsSubscription: Subscription;
   items: INewsItem[];
 }
 
@@ -23,6 +25,7 @@ export default class News extends React.Component<any, State> {
     this.newsService = new NewsService();
     this.state = {
       excludedSources: [],
+      itemsSubscription: new Subscription(),
       items: []
     };
   }
@@ -32,9 +35,13 @@ export default class News extends React.Component<any, State> {
   }
 
   private fetchNews(excludedSources: NewsSource[] = this.state.excludedSources) {
-    this.newsService
+    this.state.itemsSubscription?.unsubscribe();
+
+    const itemsSubscription = this.newsService
       .getNews(50, excludedSources)
-      .then(this.onItemsArrived.bind(this));
+      .subscribe(this.onItemsArrived.bind(this), error => console.log(error));
+
+    this.setState({ itemsSubscription });
   }
 
   private onItemsArrived(items: INewsItem[]) {
@@ -42,9 +49,7 @@ export default class News extends React.Component<any, State> {
   }
 
   render() {
-    const sources: NewsSource[] = EnumValues
-      .getValues<string>(NewsSource)
-      .map(value => value as NewsSource)
+    const sources: NewsSource[] = this.getNewsSources()
 
     return (
       <Box>
@@ -60,7 +65,7 @@ export default class News extends React.Component<any, State> {
               {
                 sources.map((source, index) => {
                   return (
-                    <Box key={index}>
+                    <Box key={ index }>
                       { this.NewsSourceCheck(source) }
                     </Box>
                   );
@@ -91,11 +96,17 @@ export default class News extends React.Component<any, State> {
     );
   }
 
-  NewsSourceCheck(source: NewsSource) {
+  private getNewsSources() {
+    return EnumValues
+      .getValues<string>(NewsSource)
+      .map(value => value as NewsSource);
+  }
+
+  private NewsSourceCheck(source: NewsSource) {
     return (
       <Grid item container direction="row">
 
-        <Switch onChange={ ((event: any, checked: boolean) => this.onClick(source, checked)).bind(this) } />
+        <Switch onChange={ ((event: any, checked: boolean) => this.onSourceCheckClick(source, checked)).bind(this) }/>
 
         <NewsSourceBadge source={ source }/>
 
@@ -103,15 +114,14 @@ export default class News extends React.Component<any, State> {
     );
   }
 
-  onClick(source: NewsSource, checked: boolean) {
+  private onSourceCheckClick(source: NewsSource, checked: boolean) {
     let excludedSources: NewsSource[];
     if (checked) {
       excludedSources = this.state.excludedSources.concat(source);
+    } else {
+      excludedSources = this.state.excludedSources.filter(element => element !== source);
     }
-    else {
-      excludedSources = this.state.excludedSources.filter(element => element === source);
-    }
-    this.setState({ excludedSources });
+    this.setState({ excludedSources, items: [] });
     this.fetchNews(excludedSources);
   }
 }
