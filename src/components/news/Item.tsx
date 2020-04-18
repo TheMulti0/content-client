@@ -21,6 +21,7 @@ export default class Item extends React.Component<Props> {
     const authorName = author.name;
     const url = item.url;
     const date = new Date(item.date);
+    const image = item.imageUrl;
 
     return (
       <ListItem>
@@ -39,9 +40,12 @@ export default class Item extends React.Component<Props> {
 
           <Grid item container spacing={ 3 } justify="flex-end">
 
-            <Grid item>
-              <img src={ item.imageUrl } alt={ title } className="image"/>
-            </Grid>
+            {
+              image !== null &&
+              <Grid item>
+                <img src={ image } alt={ title } className="image"/>
+              </Grid>
+            }
 
             <Grid item xs container direction="column" className="text-right" justify="space-between">
 
