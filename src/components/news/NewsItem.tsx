@@ -3,7 +3,6 @@ import React from 'react';
 
 import { Chip, Grid, ListItem, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
-import { NewsSource } from "../../models/NewsSource";
 import { IAuthor } from "../../models/IAuthor";
 import NewsSourceBadge from "./NewsSourceBadge";
 
@@ -11,29 +10,21 @@ interface Props {
   item: INewsItem;
 }
 
-interface SourceBadge {
-  name: string;
-  color: string;
-}
-
 export default class NewsItem extends React.Component<Props> {
-
-  private readonly item: INewsItem;
 
   constructor(props: Props) {
     super(props);
-
-    this.item = this.props.item;
   }
 
   render() {
 
-    const item: INewsItem = this.item;
+    const item: INewsItem = this.props.item;
     const author: IAuthor = item.author;
 
     const title = item.title;
     const authorName = author.name;
     const url = item.url;
+    const date = new Date(item.date);
 
     return (
       <ListItem>
@@ -84,7 +75,7 @@ export default class NewsItem extends React.Component<Props> {
 
               <Grid item>
                 <Typography variant="caption" color="textSecondary">
-                  { this.getDate() }, בשעה { this.getTime() }
+                  { this.getDate(date) }, בשעה { this.getTime(date) }
                 </Typography>
               </Grid>
 
@@ -98,9 +89,7 @@ export default class NewsItem extends React.Component<Props> {
     );
   }
 
-  getDate(): string {
-    const date = new Date(this.item.date);
-
+  getDate(date: Date): string {
     const now = new Date(Date.now());
     let today = now.getDay();
 
@@ -116,9 +105,7 @@ export default class NewsItem extends React.Component<Props> {
     return date.toLocaleDateString();
   }
 
-  getTime(): string {
-    const date = new Date(this.item.date);
-
+  getTime(date: Date): string {
     const minutes = date.getMinutes();
     let minutesString = minutes.toString();
 

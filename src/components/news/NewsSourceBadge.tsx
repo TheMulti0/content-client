@@ -1,19 +1,9 @@
 import './NewsItem.css';
 import React from 'react';
 
-import { Chip, Grid, ListItem, Typography } from "@material-ui/core";
-import { INewsItem } from "../../models/INewsItem";
+import { Chip } from "@material-ui/core";
 import { NewsSource } from "../../models/NewsSource";
-import { IAuthor } from "../../models/IAuthor";
-
-interface Props {
-  item: INewsItem;
-}
-
-interface SourceBadge {
-  name: string;
-  color: string;
-}
+import { SourceBadge } from "../../models/SourceBadge";
 
 const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, SourceBadge>([
   [
