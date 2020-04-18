@@ -45,7 +45,7 @@ export default class SourceControl extends React.Component<Props, State> impleme
     const sources = this.getNewsSources();
 
     return (
-      <Box>
+      <Box className="text-right">
         {
           sources.map((source, index) => {
             return (
@@ -56,7 +56,9 @@ export default class SourceControl extends React.Component<Props, State> impleme
             );
           })
         }
-        <Button onClick={ this.submit.bind(this) }>Suybmit</Button>
+        <Box className="pr-2">
+          <Button onClick={ this.submit.bind(this) }>רענן</Button>
+        </Box>
       </Box>
     );
   }
