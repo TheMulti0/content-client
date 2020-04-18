@@ -47,7 +47,7 @@ export default class News extends React.Component<any, NewsConsumerState> implem
     this.state.itemsSubscription?.unsubscribe();
 
     const itemsSubscription = this.newsService
-      .getNews(50, excludedSources)
+      .getNews(10, excludedSources)
       .subscribe(
         this.onItemsArrived.bind(this),
         error => console.log(error));
