@@ -1,14 +1,9 @@
+import axios, { AxiosResponse } from 'axios';
 import { INewsItem } from "../models/INewsItem";
-import { RestClient } from "typed-rest-client/RestClient";
 import { NewsSource } from "../models/NewsSource";
 
 export class NewsService {
   private readonly baseUrl = 'http://localhost:5000';
-  private readonly rest: RestClient;
-
-  constructor() {
-    this.rest = new RestClient(null, this.baseUrl);
-  }
 
   getNews(
     maxResults: number,
@@ -19,14 +14,9 @@ export class NewsService {
       maxResults,
       excludedSources);
 
-    return this.rest
-      .get<INewsItem[]>('/news', { queryParameters: { params } })
-      .then(value => {
-        if (value.result === null) {
-          return [];
-        }
-        return value.result;
-      })
+    return axios
+      .get<INewsItem[]>(`${this.baseUrl}/news`, { params })
+      .then((value: AxiosResponse<INewsItem[]>) => value.data);
   }
 
   private getParams(
