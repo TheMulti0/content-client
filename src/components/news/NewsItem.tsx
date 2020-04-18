@@ -4,10 +4,10 @@ import React from 'react';
 import { Chip, Grid, ListItem, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
 import { NewsSource } from "../../models/NewsSource";
+import { IAuthor } from "../../models/IAuthor";
 
 interface Props {
   item: INewsItem;
-  index: number;
 }
 
 interface SourceBadge {
@@ -41,19 +41,23 @@ export default class NewsItem extends React.Component<Props> {
     ]
   ]);
 
-  private item: INewsItem;
-  private index: number;
+  private readonly item: INewsItem;
 
   constructor(props: Props) {
     super(props);
 
     this.item = this.props.item;
-    this.index = this.props.index;
   }
 
   render() {
 
-    const badge = this.newsSources.get(this.item.source);
+    const item: INewsItem = this.item;
+    const author: IAuthor = item.author;
+    const badge: SourceBadge | undefined = this.newsSources.get(this.item.source);
+
+    const title = item.title;
+    const authorName = author.name;
+    const url = item.url;
 
     return (
       <ListItem>
@@ -62,10 +66,10 @@ export default class NewsItem extends React.Component<Props> {
 
           <Grid item container direction="row" alignItems="center">
 
-            <img src={ this.item.author.imageUrl } className="avatar"/>
+            <img src={ author.imageUrl } className="avatar" alt={ authorName }/>
 
             <Typography variant="body2" color="textSecondary" className="author">
-              { this.item.author.name }
+              { authorName }
             </Typography>
 
           </Grid>
@@ -73,24 +77,24 @@ export default class NewsItem extends React.Component<Props> {
           <Grid item container spacing={ 3 } justify="flex-end">
 
             <Grid item>
-              <img src={ this.item.imageUrl } alt={ this.item.title } className="image"/>
+              <img src={ item.imageUrl } alt={ title } className="image"/>
             </Grid>
 
-            <Grid item xs container direction="column" spacing={ 1 } className="text-right" justify="space-between">
+            <Grid item xs container direction="column" className="text-right" justify="space-between">
 
               {
                 badge !== undefined &&
                 <Grid item>
                   <Chip
                     label={ badge.name }
-                    style={{ backgroundColor: badge.color }} />
+                    style={ { backgroundColor: badge.color, color: '#ffffff' } }/>
                 </Grid>
               }
 
 
               <Grid item>
                 <Typography gutterBottom variant="h6">
-                  { this.item.title }
+                  { title }
                 </Typography>
               </Grid>
 
@@ -98,8 +102,8 @@ export default class NewsItem extends React.Component<Props> {
                 <Typography variant="body2" gutterBottom>
 
                   {
-                    this.item.url != null &&
-                    <a href={ this.item.url }>
+                    url != null &&
+                    <a href={ url }>
                       לכתבה המלאה
                     </a>
                   }

@@ -36,7 +36,7 @@ export class NewsService {
     let params: { [name: string]: any } = {};
 
     params['maxResults'] = maxResults;
-    params['excludedSources'] = this.toValues(excludedSources)
+    params['excludedSources'] = this.toValues(excludedSources);
 
     return params;
   }
