@@ -1,7 +1,7 @@
 import './Item.css';
 import React from 'react';
 
-import { Grid, ListItem, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
 import { IAuthor } from "../../models/IAuthor";
 import SourceChip from './SourceChip';
@@ -24,68 +24,64 @@ export default class Item extends React.Component<Props> {
     const image = item.imageUrl;
 
     return (
-      <ListItem>
+      <Grid container direction="column" spacing={ 1 } className="text-right item">
 
-        <Grid container direction="column" spacing={ 1 } className="text-right">
+        <Grid item container direction="row" alignItems="center">
 
-          <Grid item container direction="row" alignItems="center">
+          <img src={ author.imageUrl } className="avatar" alt={ authorName }/>
 
-            <img src={ author.imageUrl } className="avatar" alt={ authorName }/>
+          <Typography variant="body2" color="textSecondary" className="author">
+            { authorName }
+          </Typography>
 
-            <Typography variant="body2" color="textSecondary" className="author">
-              { authorName }
-            </Typography>
+        </Grid>
 
-          </Grid>
+        <Grid item container spacing={ 3 } justify="flex-end">
 
-          <Grid item container spacing={ 3 } justify="flex-end">
+          {
+            image !== null &&
+            <Grid item>
+              <img src={ image } alt={ title } className="image"/>
+            </Grid>
+          }
 
-            {
-              image !== null &&
-              <Grid item>
-                <img src={ image } alt={ title } className="image"/>
-              </Grid>
-            }
+          <Grid item xs container direction="column" className="text-right" justify="space-between">
 
-            <Grid item xs container direction="column" className="text-right" justify="space-between">
-
-              <Grid item>
-                <SourceChip source={ item.source } />
-              </Grid>
+            <Grid item>
+              <SourceChip source={ item.source } />
+            </Grid>
 
 
-              <Grid item>
-                <Typography gutterBottom variant="h6">
-                  { title }
-                </Typography>
-              </Grid>
+            <Grid item>
+              <Typography gutterBottom variant="h6">
+                { title }
+              </Typography>
+            </Grid>
 
-              <Grid item>
-                <Typography variant="body2" gutterBottom>
+            <Grid item>
+              <Typography variant="body2" gutterBottom>
 
-                  {
-                    url != null &&
-                    <a href={ url }>
-                      לכתבה המלאה
-                    </a>
-                  }
+                {
+                  url != null &&
+                  <a href={ url }>
+                    לכתבה המלאה
+                  </a>
+                }
 
-                </Typography>
-              </Grid>
+              </Typography>
+            </Grid>
 
-              <Grid item>
-                <Typography variant="caption" color="textSecondary">
-                  { this.getDate(date) }, בשעה { this.getTime(date) }
-                </Typography>
-              </Grid>
-
+            <Grid item>
+              <Typography variant="caption" color="textSecondary">
+                { this.getDate(date) }, בשעה { this.getTime(date) }
+              </Typography>
             </Grid>
 
           </Grid>
 
         </Grid>
 
-      </ListItem>
+      </Grid>
     );
   }
 

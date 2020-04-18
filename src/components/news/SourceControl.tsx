@@ -1,6 +1,6 @@
 import React from "react";
 import { NewsSource } from "../../models/NewsSource";
-import { Box, Paper } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { EnumValues } from "enum-values";
 import { IFacadeConsumerProps } from "./IFacadeConsumerProps";
 import SourceCheck from "./SourceCheck";

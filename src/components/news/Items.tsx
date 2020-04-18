@@ -1,4 +1,4 @@
-import { Box, Divider, List } from "@material-ui/core";
+import { Box, Divider, List, ListItem } from "@material-ui/core";
 import React from "react";
 import { INewsItem } from "../../models/INewsItem";
 import Item from "./Item";
@@ -18,10 +18,15 @@ export default function Items(props: { items: INewsItem[] }) {
 function StyledNewsItem(item: INewsItem, index: number) {
   return (
     <Box key={ index }>
-      <Item item={ item }/>
+
+      <ListItem>
+        <Item item={ item }/>
+      </ListItem>
+
       <br/>
       <Divider/>
       <br/>
+
     </Box>
   );
 }

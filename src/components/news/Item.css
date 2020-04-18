@@ -1,3 +1,7 @@
+.item {
+    max-width: 900pt;
+}
+
 .image {
     max-width: 125pt;
 }
