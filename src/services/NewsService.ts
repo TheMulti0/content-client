@@ -1,51 +1,29 @@
+import axios  from 'axios-observable';
 import { INewsItem } from "../models/INewsItem";
-import { NewsProviderType } from "../models/NewsProviderType";
-import { RestClient } from "typed-rest-client/RestClient";
+import { NewsSource } from "../models/NewsSource";
+import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 export class NewsService {
   private readonly baseUrl = 'http://localhost:5000';
-  private readonly rest: RestClient;
-
-  constructor() {
-    this.rest = new RestClient(null, this.baseUrl);
-  }
 
   getNews(
     maxResults: number,
-    excludedTypes: NewsProviderType[]
-  ): Promise<INewsItem[]> {
+    excludedSources: NewsSource[]
+  ): Observable<INewsItem[]> {
 
-    const params = this.getParams(
-      maxResults,
-      excludedTypes);
+    const params = this.getParams(maxResults, excludedSources);
 
-    return this.rest
-      .get<INewsItem[]>('/news', { queryParameters: { params } })
-      .then(value => {
-        if (value.result === null) {
-          return [];
-        }
-        return value.result;
-      })
+    return axios
+      .get<INewsItem[]>(`${this.baseUrl}/news`, { params: params })
+      .pipe(
+        map(response => response.data))
   }
 
-  private getParams(
-    maxResults: number,
-    excludedTypes: NewsProviderType[]
-  ) {
-    let params: { [name: string]: any } = {};
-
-    params['maxResults'] = maxResults;
-    params['excludedTypes'] = this.toValues(excludedTypes)
-
-    return params;
-  }
-
-  toValues(providerTypes: NewsProviderType[]) {
-    const items: string[] = [];
-    for (let i of providerTypes) {
-      items.push(NewsProviderType[i]);
-    }
-    return items;
+  private getParams(maxResults: number, excludedSources: NewsSource[]) {
+    return {
+      maxResults: maxResults,
+      excludedSources: JSON.stringify(excludedSources)
+    };
   }
 }

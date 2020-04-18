@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     height: '64px',
     width: 100,
     // marginRight: '1rem !important',
-    '&:hover, &:focusVisible': {
+    '&:hover, &$focusVisible': {
       zIndex: 1,
       '& $imageButton': {
         backgroundColor: theme.palette.action.hover
@@ -43,7 +43,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.palette.background.default,
     transition: theme.transitions.create('background-color', {duration:250})
   },
   imageButtonSelected: {
@@ -103,6 +102,7 @@ export default function MenuItem(props: Props) {
         focusRipple
         className={classes.image}
         onClick={event => setIsSelected(true)}>
+
         <Link className={isSelected ? classes.imageButtonSelected : classes.imageButton}
               to={mapping.path}>
           <Typography
@@ -113,10 +113,11 @@ export default function MenuItem(props: Props) {
 
             { mapping.name }
 
-            <span className={isSelected ? classes.imageClicked : classes.imageMarked}/>
+            <span className={isSelected ? classes.imageClicked : classes.imageMarked} />
 
           </Typography>
         </Link>
+
       </ButtonBase>
     </div>
   );

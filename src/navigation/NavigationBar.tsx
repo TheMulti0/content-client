@@ -7,7 +7,7 @@ import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import MenuItem from "./MenuItem";
 import { Observable, Subject } from "rxjs";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Box } from "@material-ui/core";
 
 interface Props {
   mappings: IRouteMapping[];
@@ -39,7 +39,7 @@ export default function NavigationBar(props: Props) {
   }
 
   return (
-    <div className="root">
+    <Box className="root">
       <AppBar position="static" color="transparent">
         <Toolbar variant="regular">
 
@@ -54,10 +54,10 @@ export default function NavigationBar(props: Props) {
               .map(
                 (mapping, index) => {
                   return (
-                    <div key={index} onClick={event => onClick(mapping)}>
+                    <Box key={index} onClick={event => onClick(mapping)}>
                       <MenuItem mapping={mapping}
                                 otherItemSelected={subjects.get(mapping) as Observable<any>} />
-                    </div>
+                    </Box>
 
                    );
 
@@ -77,7 +77,7 @@ export default function NavigationBar(props: Props) {
 
         </Toolbar>
       </AppBar>
-    </div>
+    </Box>
   );
 
 }

@@ -1,14 +1,95 @@
 import './NewsItem.css';
 import React from 'react';
 
-import { Card, CardHeader, CardContent, Typography, CardMedia } from "@material-ui/core";
+import { Chip, Grid, ListItem, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
+import { IAuthor } from "../../models/IAuthor";
+import NewsSourceBadge from "./NewsSourceBadge";
 
-export default function NewsItem(props: {item: INewsItem}) {
-  const { item } = props;
-  const date = new Date(item.date);
+interface Props {
+  item: INewsItem;
+}
 
-  function getDate(): string {
+export default class NewsItem extends React.Component<Props> {
+
+  constructor(props: Props) {
+    super(props);
+  }
+
+  render() {
+
+    const item: INewsItem = this.props.item;
+    const author: IAuthor = item.author;
+
+    const title = item.title;
+    const authorName = author.name;
+    const url = item.url;
+    const date = new Date(item.date);
+
+    return (
+      <ListItem>
+
+        <Grid container direction="column" spacing={ 1 } className="text-right">
+
+          <Grid item container direction="row" alignItems="center">
+
+            <img src={ author.imageUrl } className="avatar" alt={ authorName }/>
+
+            <Typography variant="body2" color="textSecondary" className="author">
+              { authorName }
+            </Typography>
+
+          </Grid>
+
+          <Grid item container spacing={ 3 } justify="flex-end">
+
+            <Grid item>
+              <img src={ item.imageUrl } alt={ title } className="image"/>
+            </Grid>
+
+            <Grid item xs container direction="column" className="text-right" justify="space-between">
+
+              <Grid item>
+                <NewsSourceBadge source={ item.source } />
+              </Grid>
+
+
+              <Grid item>
+                <Typography gutterBottom variant="h6">
+                  { title }
+                </Typography>
+              </Grid>
+
+              <Grid item>
+                <Typography variant="body2" gutterBottom>
+
+                  {
+                    url != null &&
+                    <a href={ url }>
+                      לכתבה המלאה
+                    </a>
+                  }
+
+                </Typography>
+              </Grid>
+
+              <Grid item>
+                <Typography variant="caption" color="textSecondary">
+                  { this.getDate(date) }, בשעה { this.getTime(date) }
+                </Typography>
+              </Grid>
+
+            </Grid>
+
+          </Grid>
+
+        </Grid>
+
+      </ListItem>
+    );
+  }
+
+  getDate(date: Date): string {
     const now = new Date(Date.now());
     let today = now.getDay();
 
@@ -24,44 +105,14 @@ export default function NewsItem(props: {item: INewsItem}) {
     return date.toLocaleDateString();
   }
 
-  function getTime(): string {
+  getTime(date: Date): string {
     const minutes = date.getMinutes();
     let minutesString = minutes.toString();
+
     if (minutes < 10) {
-      minutesString = `0${minutesString}`;
+      minutesString = `0${ minutesString }`;
     }
+
     return `${ date.getHours() }:${ minutesString }`
   }
-
-  return (
-    <Card className="card"
-          variant="elevation">
-
-      <CardHeader
-        avatar={ <img src={ item.author.imageUrl }  alt="" /> }
-        title={ item.author.name } />
-
-      <Typography className="date" color="textSecondary" variant="h6">
-        { getDate() }, בשעה { getTime() }
-      </Typography>
-
-      <CardContent>
-
-        <Typography className="content">
-          <a href={item.url}>
-            { item.description }
-          </a>
-        </Typography>
-
-      </CardContent>
-
-      {
-        item.imageUrl !== null &&
-        <CardMedia
-          style={{height: 0, paddingTop: '56.25%'}}
-          image={ item.imageUrl } />
-      }
-
-    </Card>
-  );
 }

@@ -1,36 +1,17 @@
-img {
-    width: 32px;
-    height: 32px;
+.image {
+    max-width: 125pt;
+}
+@media (max-width: 450pt) {
+    .image {
+        max-width: 100%;
+    }
 }
 
-.card {
-    width: 250pt;
-    max-width: 600pt;
-
-    max-height: 600pt;
+.avatar {
+    width: 40px;
+    height: 40px;
 }
 
-.date {
-    padding-right: 10pt;
-    font-size: 0.875rem !important;
-}
-
-.MuiCardHeader-root {
-    padding: 5pt !important;
-}
-
-.MuiCardHeader-avatar {
-    margin-right: 5pt !important;
-}
-
-.MuiCardHeader-title {
-    padding-right: 6pt;
-}
-
-.MuiCardContent-root {
-    padding-top: 2pt !important;
-}
-
-.content {
-    font-size: 1rem !important;
+.author {
+    padding-right: 4pt;
 }
