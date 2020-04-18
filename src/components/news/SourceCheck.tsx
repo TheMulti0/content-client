@@ -1,43 +1,23 @@
-import { IFacadeConsumerProps } from "./IFacadeConsumerProps";
-import { NewsSource } from "../../models/NewsSource";
-import { Grid, Switch } from "@material-ui/core";
+import { Checkbox, Grid } from "@material-ui/core";
 import SourceChip from "./SourceChip";
-import { INewsFacade } from "./INewsFacade";
 import React from "react";
 import { ISourceConsumerProps } from "./ISourceConsumerProps";
+import { ISourceControl } from "./ISourceControl";
 
-interface Props extends IFacadeConsumerProps, ISourceConsumerProps {
+interface Props extends ISourceConsumerProps {
+  sourceControl: ISourceControl;
 }
 
 export default function SourceCheck(props: Props) {
-  const { facade, source } = props;
+  const { source, sourceControl } = props;
 
   return (
-    <Grid container direction="row">
+    <Grid container direction="row" alignItems="center">
 
-      <Switch
-        onChange={ (event: any, checked: boolean) => onSourceCheckClick(facade, source, checked) }/>
+      <Checkbox onChange={ (event: any, checked: boolean) => sourceControl.onSelectionChanged(source, checked) } />
 
-      <SourceChip source={ source }/>
+      <SourceChip source={ source } />
 
     </Grid>
   );
-}
-
-function onSourceCheckClick(
-  facade: INewsFacade,
-  source: NewsSource,
-  checked: boolean
-) {
-  const oldExcludedSources = facade.getExcludedSources();
-  let excludedSources: NewsSource[];
-
-  if (checked) {
-    excludedSources = oldExcludedSources.concat(source);
-  } else {
-    excludedSources = oldExcludedSources.filter(element => element !== source);
-  }
-
-  facade.resetItems(); // Remove current items, show the loading icon
-  facade.fetchNews(excludedSources);
 }
