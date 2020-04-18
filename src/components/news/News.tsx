@@ -60,24 +60,30 @@ export default class News extends React.Component<any, NewsConsumerState> implem
   }
 
   render() {
+    const areThereItems = this.state.items.length > 0;
+
     return (
       <Box className="p-2">
 
-        <Backdrop className="backdrop" open={ this.state.items.length === 0 }>
-          <CircularProgress color="inherit"/>
+        <Backdrop className="backdrop" open={ !areThereItems }>
+          <CircularProgress color="inherit" />
         </Backdrop>
 
-        <Grid container direction="row" spacing={ 2 }>
+        {
+          areThereItems &&
+          <Grid container direction="row" spacing={ 2 }>
 
-          <Grid item>
-            <SourceControl facade={ this }/>
+            <Grid item>
+              <SourceControl facade={ this } />
+            </Grid>
+
+            <Grid item>
+              <Items items={ this.state.items } />
+            </Grid>
+
           </Grid>
+        }
 
-          <Grid item>
-            <Items items={ this.state.items }/>
-          </Grid>
-
-        </Grid>
       </Box>
     );
   }
