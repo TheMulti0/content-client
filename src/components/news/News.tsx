@@ -10,19 +10,20 @@ import NewsSourceBadge from "./NewsSourceBadge";
 import { EnumValues } from "enum-values";
 import { Subscription } from "rxjs";
 
-interface State {
+interface NewsConsumerState {
   excludedSources: NewsSource[];
   itemsSubscription: Subscription;
   items: INewsItem[];
 }
 
-export default class News extends React.Component<any, State> {
+export default class News extends React.Component<any, NewsConsumerState> {
   private newsService: NewsService;
 
   constructor(props: any) {
     super(props);
 
     this.newsService = new NewsService();
+
     this.state = {
       excludedSources: [],
       itemsSubscription: new Subscription(),
@@ -31,15 +32,17 @@ export default class News extends React.Component<any, State> {
   }
 
   componentDidMount() {
-    this.fetchNews();
+    this.fetchNews([]);
   }
 
-  private fetchNews(excludedSources: NewsSource[] = this.state.excludedSources) {
+  private fetchNews(excludedSources: NewsSource[]) {
     this.state.itemsSubscription?.unsubscribe();
 
     const itemsSubscription = this.newsService
       .getNews(50, excludedSources)
-      .subscribe(this.onItemsArrived.bind(this), error => console.log(error));
+      .subscribe(
+        this.onItemsArrived.bind(this),
+        error => console.log(error));
 
     this.setState({ itemsSubscription });
   }
@@ -61,34 +64,11 @@ export default class News extends React.Component<any, State> {
         <Grid container direction="row">
 
           <Grid item>
-            <Paper>
-              {
-                sources.map((source, index) => {
-                  return (
-                    <Box key={ index }>
-                      { this.NewsSourceCheck(source) }
-                    </Box>
-                  );
-                })
-              }
-            </Paper>
+            { this.SourceControl(sources) }
           </Grid>
 
           <Grid item>
-            <List className="news">
-              {
-                this.state.items.map((item, index) => {
-                  return (
-                    <Box key={ index }>
-                      <NewsItem item={ item }/>
-                      <br/>
-                      <Divider/>
-                      <br/>
-                    </Box>
-                  );
-                })
-              }
-            </List>
+            { this.NewsItems() }
           </Grid>
 
         </Grid>
@@ -102,11 +82,42 @@ export default class News extends React.Component<any, State> {
       .map(value => value as NewsSource);
   }
 
+  private SourceControl(sources: NewsSource[]) {
+    return <Paper>
+      {
+        sources.map((source, index) => {
+          return (
+            <Box key={ index }>
+              { this.NewsSourceCheck(source) }
+            </Box>
+          );
+        })
+      }
+    </Paper>;
+  }
+
+  private NewsItems() {
+    return <List className="news">
+      {
+        this.state.items.map((item, index) => {
+          return (
+            <Box key={ index }>
+              <NewsItem item={ item }/>
+              <br/>
+              <Divider/>
+              <br/>
+            </Box>
+          );
+        })
+      }
+    </List>;
+  }
+
   private NewsSourceCheck(source: NewsSource) {
     return (
       <Grid item container direction="row">
 
-        <Switch onChange={ ((event: any, checked: boolean) => this.onSourceCheckClick(source, checked)).bind(this) }/>
+        <Switch onChange={ (event: any, checked: boolean) => this.onSourceCheckClick(source, checked) }/>
 
         <NewsSourceBadge source={ source }/>
 
@@ -116,12 +127,15 @@ export default class News extends React.Component<any, State> {
 
   private onSourceCheckClick(source: NewsSource, checked: boolean) {
     let excludedSources: NewsSource[];
+
     if (checked) {
       excludedSources = this.state.excludedSources.concat(source);
     } else {
       excludedSources = this.state.excludedSources.filter(element => element !== source);
     }
-    this.setState({ excludedSources, items: [] });
+
+    this.setState({ excludedSources, items: [] }); // Remove current items, show the loading icon
+
     this.fetchNews(excludedSources);
   }
 }
