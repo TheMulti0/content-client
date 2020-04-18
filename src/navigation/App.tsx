@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ComponentRoute from "./ComponentRoute";
 import Component from "./Component";
 import { IRouteMapping } from '../models/IRouteMapping';
-import { createMuiTheme, CssBaseline, MuiThemeProvider, Theme, ThemeOptions } from "@material-ui/core";
+import { Box, createMuiTheme, CssBaseline, MuiThemeProvider, Theme, ThemeOptions } from "@material-ui/core";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 import News from "../components/news/News";
 import { heIL } from "@material-ui/core/locale";
@@ -50,7 +50,7 @@ export default class App extends React.Component<any, State> {
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline/>
-        <div dir="rtl">
+        <Box dir="rtl">
           <BrowserRouter>
 
             <NavigationBar mappings={this.routes}
@@ -70,7 +70,7 @@ export default class App extends React.Component<any, State> {
             </Switch>
 
           </BrowserRouter>
-        </div>
+        </Box>
       </MuiThemeProvider>
     );
   }

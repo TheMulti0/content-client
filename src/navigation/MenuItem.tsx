@@ -102,6 +102,7 @@ export default function MenuItem(props: Props) {
         focusRipple
         className={classes.image}
         onClick={event => setIsSelected(true)}>
+
         <Link className={isSelected ? classes.imageButtonSelected : classes.imageButton}
               to={mapping.path}>
           <Typography
@@ -112,10 +113,11 @@ export default function MenuItem(props: Props) {
 
             { mapping.name }
 
-            <span className={isSelected ? classes.imageClicked : classes.imageMarked}/>
+            <span className={isSelected ? classes.imageClicked : classes.imageMarked} />
 
           </Typography>
         </Link>
+
       </ButtonBase>
     </div>
   );
