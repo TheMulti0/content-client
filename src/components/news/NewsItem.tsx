@@ -5,6 +5,7 @@ import { Chip, Grid, ListItem, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
 import { NewsSource } from "../../models/NewsSource";
 import { IAuthor } from "../../models/IAuthor";
+import NewsSourceBadge from "./NewsSourceBadge";
 
 interface Props {
   item: INewsItem;
@@ -16,30 +17,6 @@ interface SourceBadge {
 }
 
 export default class NewsItem extends React.Component<Props> {
-
-  private newsSources: Map<NewsSource, SourceBadge> = new Map<NewsSource, SourceBadge>([
-    [
-      NewsSource.Mako,
-      {
-        name: 'מאקו',
-        color: '#e83727'
-      }
-    ],
-    [
-      NewsSource.MakoReporters,
-      {
-        name: 'כתבי N12',
-        color: '#e83727'
-      }
-    ],
-    [
-      NewsSource.KanNews,
-      {
-        name: 'כאן',
-        color: '#616161'
-      }
-    ]
-  ]);
 
   private readonly item: INewsItem;
 
@@ -53,7 +30,6 @@ export default class NewsItem extends React.Component<Props> {
 
     const item: INewsItem = this.item;
     const author: IAuthor = item.author;
-    const badge: SourceBadge | undefined = this.newsSources.get(this.item.source);
 
     const title = item.title;
     const authorName = author.name;
@@ -82,14 +58,9 @@ export default class NewsItem extends React.Component<Props> {
 
             <Grid item xs container direction="column" className="text-right" justify="space-between">
 
-              {
-                badge !== undefined &&
-                <Grid item>
-                  <Chip
-                    label={ badge.name }
-                    style={ { backgroundColor: badge.color, color: '#ffffff' } }/>
-                </Grid>
-              }
+              <Grid item>
+                <NewsSourceBadge source={ item.source } />
+              </Grid>
 
 
               <Grid item>
