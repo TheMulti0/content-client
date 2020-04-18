@@ -3,12 +3,12 @@ import React from 'react';
 
 import { NewsService } from "../../services/NewsService";
 import { INewsItem } from "../../models/INewsItem";
-import NewsItem from "./NewsItem";
-import { Backdrop, Box, CircularProgress, Divider, Grid, List, Paper, Switch } from '@material-ui/core';
+import { Backdrop, Box, CircularProgress, Grid } from '@material-ui/core';
 import { NewsSource } from "../../models/NewsSource";
-import NewsSourceBadge from "./NewsSourceBadge";
-import { EnumValues } from "enum-values";
 import { Subscription } from "rxjs";
+import NewsItems from "./NewsItems";
+import { INewsFacade } from "./INewsFacade";
+import SourceControl from "./SourceControl";
 
 interface NewsConsumerState {
   excludedSources: NewsSource[];
@@ -16,7 +16,7 @@ interface NewsConsumerState {
   items: INewsItem[];
 }
 
-export default class News extends React.Component<any, NewsConsumerState> {
+export default class News extends React.Component<any, NewsConsumerState> implements INewsFacade {
   private newsService: NewsService;
 
   constructor(props: any) {
@@ -35,7 +35,15 @@ export default class News extends React.Component<any, NewsConsumerState> {
     this.fetchNews([]);
   }
 
-  private fetchNews(excludedSources: NewsSource[]) {
+  public getExcludedSources(): NewsSource[] {
+    return this.state.excludedSources;
+  }
+
+  public resetItems(): void {
+    this.setState({ items: [] });
+  }
+
+  public fetchNews(excludedSources: NewsSource[]) {
     this.state.itemsSubscription?.unsubscribe();
 
     const itemsSubscription = this.newsService
@@ -52,8 +60,6 @@ export default class News extends React.Component<any, NewsConsumerState> {
   }
 
   render() {
-    const sources: NewsSource[] = this.getNewsSources()
-
     return (
       <Box>
 
@@ -64,78 +70,15 @@ export default class News extends React.Component<any, NewsConsumerState> {
         <Grid container direction="row">
 
           <Grid item>
-            { this.SourceControl(sources) }
+            <SourceControl facade={ this }/>
           </Grid>
 
           <Grid item>
-            { this.NewsItems() }
+            <NewsItems items={ this.state.items }/>
           </Grid>
 
         </Grid>
       </Box>
     );
-  }
-
-  private getNewsSources() {
-    return EnumValues
-      .getValues<string>(NewsSource)
-      .map(value => value as NewsSource);
-  }
-
-  private SourceControl(sources: NewsSource[]) {
-    return <Paper>
-      {
-        sources.map((source, index) => {
-          return (
-            <Box key={ index }>
-              { this.NewsSourceCheck(source) }
-            </Box>
-          );
-        })
-      }
-    </Paper>;
-  }
-
-  private NewsItems() {
-    return <List className="news">
-      {
-        this.state.items.map((item, index) => {
-          return (
-            <Box key={ index }>
-              <NewsItem item={ item }/>
-              <br/>
-              <Divider/>
-              <br/>
-            </Box>
-          );
-        })
-      }
-    </List>;
-  }
-
-  private NewsSourceCheck(source: NewsSource) {
-    return (
-      <Grid item container direction="row">
-
-        <Switch onChange={ (event: any, checked: boolean) => this.onSourceCheckClick(source, checked) }/>
-
-        <NewsSourceBadge source={ source }/>
-
-      </Grid>
-    );
-  }
-
-  private onSourceCheckClick(source: NewsSource, checked: boolean) {
-    let excludedSources: NewsSource[];
-
-    if (checked) {
-      excludedSources = this.state.excludedSources.concat(source);
-    } else {
-      excludedSources = this.state.excludedSources.filter(element => element !== source);
-    }
-
-    this.setState({ excludedSources, items: [] }); // Remove current items, show the loading icon
-
-    this.fetchNews(excludedSources);
   }
 }

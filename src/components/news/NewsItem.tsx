@@ -1,7 +1,7 @@
 import './NewsItem.css';
 import React from 'react';
 
-import { Chip, Grid, ListItem, Typography } from "@material-ui/core";
+import { Grid, ListItem, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
 import { IAuthor } from "../../models/IAuthor";
 import NewsSourceBadge from "./NewsSourceBadge";
@@ -11,10 +11,6 @@ interface Props {
 }
 
 export default class NewsItem extends React.Component<Props> {
-
-  constructor(props: Props) {
-    super(props);
-  }
 
   render() {
 
@@ -90,6 +86,8 @@ export default class NewsItem extends React.Component<Props> {
   }
 
   getDate(date: Date): string {
+    // TODO Make sure item.date and date.now share the same year, month, week
+
     const now = new Date(Date.now());
     let today = now.getDay();
 
