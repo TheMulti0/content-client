@@ -21,10 +21,17 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
     }
   ],
   [
-    NewsSource.KanNews,
+    NewsSource.Kan,
     {
       name: 'כאן',
       color: '#616161'
+    }
+  ],
+  [
+    NewsSource.Ynet,
+    {
+      name: 'ynet',
+      color: '#fc1414'
     }
   ]
 ]);
