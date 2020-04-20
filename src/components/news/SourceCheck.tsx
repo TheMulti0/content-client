@@ -14,7 +14,9 @@ export default function SourceCheck(props: Props) {
   return (
     <Grid container direction="row" alignItems="center">
 
-      <Checkbox onChange={ (event: any, checked: boolean) => sourceControl.onSelectionChanged(source, checked) } />
+      <Checkbox
+        onChange={ (event: any, checked: boolean) => sourceControl.onSelectionChanged(source, checked) }
+        checked={ sourceControl.getInitialState(source) } />
 
       <SourceChip source={ source } />
 

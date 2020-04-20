@@ -7,21 +7,13 @@ import { INewsFacade } from "./INewsFacade";
 import { ISourceControl } from "./ISourceControl";
 
 interface Props {
-  facade: INewsFacade
+  facade: INewsFacade;
 }
 
-interface State {
-  excludedSources: NewsSource[];
-}
-
-export default class SourceControl extends React.Component<Props, State> implements ISourceControl {
+export default class SourceControl extends React.Component<Props> implements ISourceControl {
 
   constructor(props: Props) {
     super(props);
-
-    this.state = {
-      excludedSources: []
-    }
   }
 
   public onSelectionChanged(
@@ -29,16 +21,17 @@ export default class SourceControl extends React.Component<Props, State> impleme
     checked: boolean
   ): void {
 
-    const oldExcludedSources = this.state.excludedSources;
-    let excludedSources: NewsSource[];
+    const { facade } = this.props;
 
     if (checked) {
-      excludedSources = oldExcludedSources.concat(source);
+      facade.addToExcludedSources(source);
     } else {
-      excludedSources = oldExcludedSources.filter(element => element !== source);
+      facade.removeFromExcludedSources(source);
     }
+  }
 
-    this.setState({ excludedSources });
+  public getInitialState(source: NewsSource): boolean {
+    return this.props.facade.getExcludedSources().includes(source);
   }
 
   render() {
@@ -72,6 +65,6 @@ export default class SourceControl extends React.Component<Props, State> impleme
   private submit() {
     const { facade } = this.props;
     facade.resetItems();
-    facade.fetchNews(this.state.excludedSources);
+    facade.fetchNews();
   }
 }

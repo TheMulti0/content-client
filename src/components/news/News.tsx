@@ -32,22 +32,36 @@ export default class News extends React.Component<any, NewsConsumerState> implem
   }
 
   componentDidMount() {
-    this.fetchNews([]);
+    this.fetchNews();
   }
 
   public getExcludedSources(): NewsSource[] {
     return this.state.excludedSources;
   }
 
+  public addToExcludedSources(source: NewsSource): void {
+    const oldExcludedSources = this.state.excludedSources;
+    const excludedSources: NewsSource[] = oldExcludedSources.concat(source);
+
+    this.setState({ excludedSources });
+  }
+
+  public removeFromExcludedSources(source: NewsSource): void {
+    const oldExcludedSources = this.state.excludedSources;
+    const excludedSources: NewsSource[] = oldExcludedSources.filter(element => element !== source);
+
+    this.setState({ excludedSources });
+  }
+
   public resetItems(): void {
     this.setState({ items: [] });
   }
 
-  public fetchNews(excludedSources: NewsSource[]) {
+  public fetchNews() {
     this.state.itemsSubscription?.unsubscribe();
 
     const itemsSubscription = this.newsService
-      .getNews(10, excludedSources)
+      .getNews(10, this.state.excludedSources)
       .subscribe(
         this.onItemsArrived.bind(this),
         error => console.log(error));
