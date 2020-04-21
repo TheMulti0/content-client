@@ -7,7 +7,7 @@ import Report from "./Report";
 
 export default function Reports(props: { items: INewsItem[] }) {
   return (
-    <Grid container direction="column" spacing={4} className="reports text-right">
+    <Grid container direction="column" spacing={ 5 } className="reports text-right">
       {
         props.items.map(ReportItem)
       }
@@ -19,7 +19,7 @@ export default function Reports(props: { items: INewsItem[] }) {
 
 function ReportItem(item: INewsItem, index: number) {
   return (
-    <Grid item key={ index } >
+    <Grid item key={ index }>
       <Report item={ item } />
     </Grid>
   );

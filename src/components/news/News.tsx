@@ -15,6 +15,7 @@ interface NewsConsumerState {
   excludedSources: NewsSource[];
   itemsSubscription: Subscription;
   items: INewsItem[];
+  reports: INewsItem[];
 }
 
 export default class News extends React.Component<any, NewsConsumerState> implements INewsFacade {
@@ -28,12 +29,14 @@ export default class News extends React.Component<any, NewsConsumerState> implem
     this.state = {
       excludedSources: [],
       itemsSubscription: new Subscription(),
-      items: []
+      items: [],
+      reports: []
     };
   }
 
   componentDidMount() {
     this.fetchNews();
+    this.fetchReports();
   }
 
   public getExcludedSources(): NewsSource[] {
@@ -70,6 +73,14 @@ export default class News extends React.Component<any, NewsConsumerState> implem
     this.setState({ itemsSubscription });
   }
 
+  private fetchReports() {
+    this.newsService
+      .getNews(30, [NewsSource.Mako, NewsSource.Kan, NewsSource.Ynet])
+      .subscribe(
+        reports => this.setState({ reports }),
+        error => console.log(error));
+  }
+
   private onItemsArrived(items: INewsItem[]) {
     this.setState({ items });
   }
@@ -86,7 +97,7 @@ export default class News extends React.Component<any, NewsConsumerState> implem
 
         {
           areThereItems &&
-          <Grid container direction="row" justify={"space-between"}>
+          <Grid container direction="row" justify={ "space-between" }>
 
             <Grid item>
               <SourceControl facade={ this } />
@@ -97,7 +108,7 @@ export default class News extends React.Component<any, NewsConsumerState> implem
             </Grid>
 
             <Grid item className="pl-2">
-              <Reports items={ this.state.items } />
+              <Reports items={ this.state.reports } />
             </Grid>
 
           </Grid>
