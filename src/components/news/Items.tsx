@@ -9,13 +9,13 @@ export default function Items(props: { items: INewsItem[] }) {
   return (
     <List className="news">
       {
-        items.map(StyledNewsItem)
+        items.map(NewsItem)
       }
     </List>
   );
 }
 
-function StyledNewsItem(item: INewsItem, index: number) {
+function NewsItem(item: INewsItem, index: number) {
   return (
     <Box key={ index }>
 

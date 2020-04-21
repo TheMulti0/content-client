@@ -9,6 +9,7 @@ import { Subscription } from "rxjs";
 import { INewsFacade } from "./INewsFacade";
 import SourceControl from "./SourceControl";
 import Items from './Items';
+import Reports from "./Reports";
 
 interface NewsConsumerState {
   excludedSources: NewsSource[];
@@ -85,7 +86,7 @@ export default class News extends React.Component<any, NewsConsumerState> implem
 
         {
           areThereItems &&
-          <Grid container direction="row" spacing={ 2 }>
+          <Grid container direction="row" justify={"space-between"}>
 
             <Grid item>
               <SourceControl facade={ this } />
@@ -93,6 +94,10 @@ export default class News extends React.Component<any, NewsConsumerState> implem
 
             <Grid item>
               <Items items={ this.state.items } />
+            </Grid>
+
+            <Grid item className="pl-2">
+              <Reports items={ this.state.items } />
             </Grid>
 
           </Grid>
