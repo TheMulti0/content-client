@@ -12,10 +12,6 @@ interface Props {
 
 export default class SourceControl extends React.Component<Props> implements ISourceControl {
 
-  constructor(props: Props) {
-    super(props);
-  }
-
   public onSelectionChanged(
     source: NewsSource,
     checked: boolean

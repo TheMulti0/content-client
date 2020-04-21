@@ -75,7 +75,7 @@ export default class News extends React.Component<any, NewsConsumerState> implem
 
   private fetchReports() {
     this.newsService
-      .getNews(30, [NewsSource.Mako, NewsSource.Kan, NewsSource.Ynet])
+      .getNews(100, [NewsSource.Mako, NewsSource.Kan, NewsSource.Ynet])
       .subscribe(
         reports => this.setState({ reports }),
         error => console.log(error));
