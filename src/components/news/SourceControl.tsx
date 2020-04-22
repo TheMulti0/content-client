@@ -8,6 +8,7 @@ import { ISourceControl } from "./ISourceControl";
 
 interface Props {
   facade: INewsFacade;
+  sources: NewsSource[];
 }
 
 export default class SourceControl extends React.Component<Props> implements ISourceControl {
@@ -31,7 +32,7 @@ export default class SourceControl extends React.Component<Props> implements ISo
   }
 
   render() {
-    const sources = this.getNewsSources();
+    const { sources } = this.props;
 
     return (
       <Box className="text-right">
@@ -50,12 +51,6 @@ export default class SourceControl extends React.Component<Props> implements ISo
         </Box>
       </Box>
     );
-  }
-
-  private getNewsSources() {
-    return EnumValues
-      .getValues<string>(NewsSource)
-      .map(value => value as NewsSource);
   }
 
   private submit() {

@@ -10,6 +10,7 @@ import { INewsFacade } from "./INewsFacade";
 import SourceControl from "./SourceControl";
 import Items from './Items';
 import Reports from "./Reports";
+import { EnumValues } from "enum-values";
 
 interface NewsConsumerState {
   excludedSources: NewsSource[];
@@ -20,6 +21,11 @@ interface NewsConsumerState {
 
 export default class News extends React.Component<any, NewsConsumerState> implements INewsFacade {
   private newsService: NewsService;
+  private reportsSources: NewsSource[] = [
+    NewsSource.MakoReporters,
+    NewsSource.YnetReports
+  ];
+  private newsSources = this.getNewsSources();
 
   constructor(props: any) {
     super(props);
@@ -27,7 +33,7 @@ export default class News extends React.Component<any, NewsConsumerState> implem
     this.newsService = new NewsService();
 
     this.state = {
-      excludedSources: [],
+      excludedSources: this.reportsSources,
       itemsSubscription: new Subscription(),
       items: [],
       reports: []
@@ -75,11 +81,15 @@ export default class News extends React.Component<any, NewsConsumerState> implem
 
   private fetchReports() {
     this.newsService
-      .getNews(100, [NewsSource.Mako, NewsSource.Kan, NewsSource.Ynet])
+      .getNews(
+        100,
+        this.newsSources)
       .subscribe(
         reports => this.setState({ reports }),
         error => console.log(error));
   }
+
+
 
   private onItemsArrived(items: INewsItem[]) {
     this.setState({ items });
@@ -100,7 +110,7 @@ export default class News extends React.Component<any, NewsConsumerState> implem
           <Grid container direction="row" justify={ "space-between" }>
 
             <Grid item>
-              <SourceControl facade={ this } />
+              <SourceControl facade={ this } sources={ this.newsSources } />
             </Grid>
 
             <Grid item>
@@ -116,5 +126,16 @@ export default class News extends React.Component<any, NewsConsumerState> implem
 
       </Box>
     );
+  }
+
+  private getAllNewsSources() {
+    return EnumValues
+      .getValues<string>(NewsSource)
+      .map(value => value as NewsSource);
+  }
+
+  private getNewsSources() {
+    return this.getAllNewsSources()
+      .filter(source => !this.reportsSources.includes(source));
   }
 }
