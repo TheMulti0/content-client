@@ -71,7 +71,7 @@ export default class News extends React.Component<any, NewsConsumerState> implem
   private fetchReports() {
     this.newsService
       .getNews(
-        100,
+        this.state.lastQuery.maxResults,
         this.newsSources)
       .subscribe(
         reports => this.setState({ reports }),
