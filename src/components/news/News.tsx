@@ -11,9 +11,10 @@ import SourceControl from "./SourceControl";
 import Items from './Items';
 import Reports from "./Reports";
 import { EnumValues } from "enum-values";
+import { IQuery } from "./IQuery";
 
 interface NewsConsumerState {
-  excludedSources: NewsSource[];
+  lastQuery: IQuery;
   itemsSubscription: Subscription;
   items: INewsItem[];
   reports: INewsItem[];
@@ -32,8 +33,13 @@ export default class News extends React.Component<any, NewsConsumerState> implem
 
     this.newsService = new NewsService();
 
-    this.state = {
+    const defaultQuery: IQuery = {
       excludedSources: this.reportsSources,
+      maxResults: 10
+    };
+
+    this.state = {
+      lastQuery: defaultQuery,
       itemsSubscription: new Subscription(),
       items: [],
       reports: []
@@ -41,42 +47,25 @@ export default class News extends React.Component<any, NewsConsumerState> implem
   }
 
   componentDidMount() {
-    this.fetchNews();
+    this.fetchNews(this.state.lastQuery);
     this.fetchReports();
   }
 
-  public getExcludedSources(): NewsSource[] {
-    return this.state.excludedSources;
-  }
-
-  public addToExcludedSources(source: NewsSource): void {
-    const oldExcludedSources = this.state.excludedSources;
-    const excludedSources: NewsSource[] = oldExcludedSources.concat(source);
-
-    this.setState({ excludedSources });
-  }
-
-  public removeFromExcludedSources(source: NewsSource): void {
-    const oldExcludedSources = this.state.excludedSources;
-    const excludedSources: NewsSource[] = oldExcludedSources.filter(element => element !== source);
-
-    this.setState({ excludedSources });
-  }
-
-  public resetItems(): void {
+  private resetItems(): void {
     this.setState({ items: [] });
   }
 
-  public fetchNews() {
+  public fetchNews(query: IQuery) {
+    this.resetItems();
     this.state.itemsSubscription?.unsubscribe();
 
     const itemsSubscription = this.newsService
-      .getNews(10, this.state.excludedSources)
+      .getNews(query.maxResults, query.excludedSources)
       .subscribe(
         this.onItemsArrived.bind(this),
         error => console.log(error));
 
-    this.setState({ itemsSubscription });
+    this.setState({ itemsSubscription, lastQuery: query });
   }
 
   private fetchReports() {
@@ -88,8 +77,6 @@ export default class News extends React.Component<any, NewsConsumerState> implem
         reports => this.setState({ reports }),
         error => console.log(error));
   }
-
-
 
   private onItemsArrived(items: INewsItem[]) {
     this.setState({ items });
@@ -110,7 +97,9 @@ export default class News extends React.Component<any, NewsConsumerState> implem
           <Grid container direction="row" justify={ "space-between" }>
 
             <Grid item>
-              <SourceControl facade={ this } sources={ this.newsSources } />
+              <SourceControl facade={ this }
+                             availableSources={ this.newsSources }
+                             defaultQuery={ this.state.lastQuery } />
             </Grid>
 
             <Grid item>
