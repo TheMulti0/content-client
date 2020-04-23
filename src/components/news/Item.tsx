@@ -36,12 +36,12 @@ export default class Item extends React.Component<Props> {
 
         </Grid>
 
-        <Grid item container spacing={ 3 } justify="flex-end">
+        <Grid item container spacing={ 3 } justify="flex-end" className="content">
 
           {
             image !== null &&
             <Grid item>
-              <img src={ image } alt={ title } className="image"/>
+              <img src={ image } alt={ title } className="image" />
             </Grid>
           }
 

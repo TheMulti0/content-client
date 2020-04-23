@@ -5,9 +5,15 @@
 .image {
     max-width: 125pt;
 }
+.content {
+    flex-direction: row;
+}
 @media (max-width: 450pt) {
     .image {
-        max-width: 100%;
+        max-width: 100% !important;
+    }
+    .content {
+        flex-direction: column;
     }
 }
 
