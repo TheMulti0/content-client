@@ -40,6 +40,13 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
       name: 'מבזקי ynet',
       color: '#fc1414'
     }
+  ],
+  [
+    NewsSource.Calcalist,
+    {
+      name: 'כלכליסט',
+      color: '#D01E25'
+    }
   ]
 ]);
 

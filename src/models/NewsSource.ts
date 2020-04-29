@@ -3,5 +3,6 @@ export enum NewsSource {
   MakoReporters = "MakoReporters",
   Kan = "Kan",
   Ynet = "Ynet",
-  YnetReports = "YnetReports"
+  YnetReports = "YnetReports",
+  Calcalist = "Calcalist"
 }
