@@ -24,7 +24,8 @@ export default class News extends React.Component<any, NewsConsumerState> implem
   private newsService: NewsService;
   private reportsSources: NewsSource[] = [
     NewsSource.MakoReporters,
-    NewsSource.YnetReports
+    NewsSource.YnetReports,
+    NewsSource.CalcalistReports
   ];
   private newsSources = this.getNewsSources();
 
