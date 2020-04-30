@@ -31,14 +31,14 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
     NewsSource.Ynet,
     {
       name: 'ynet',
-      color: '#fc1414'
+      color: '#CC0000'
     }
   ],
   [
     NewsSource.YnetReports,
     {
       name: 'מבזקי ynet',
-      color: '#fc1414'
+      color: '#CC0000'
     }
   ],
   [
@@ -73,7 +73,7 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
     NewsSource.Haaretz,
     {
       name: 'הארץ',
-      color: '#24a1f4'
+      color: '#006382'
     }
   ]
 ]);

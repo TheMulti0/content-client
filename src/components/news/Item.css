@@ -3,7 +3,7 @@
 }
 
 .image {
-    max-width: 125pt;
+    width: 125pt;
 }
 .content {
     flex-direction: row;
