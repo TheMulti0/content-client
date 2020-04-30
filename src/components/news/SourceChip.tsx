@@ -75,6 +75,13 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
       name: 'הארץ',
       color: '#006382'
     }
+  ],
+  [
+    NewsSource.TheMarker,
+    {
+      name: 'TheMarker',
+      color: '#00C800'
+    }
   ]
 ]);
 
