@@ -9,5 +9,6 @@ export enum NewsSource {
   Walla = "Walla",
   WallaReports = "WallaReports",
   Haaretz = "Haaretz",
+  TheMarker = "TheMarker",
   N0404 = "N0404"
 }
