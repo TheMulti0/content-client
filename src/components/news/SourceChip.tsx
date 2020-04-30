@@ -68,6 +68,13 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
       name: 'וואלה! מבזקים',
       color: '#24a1f4'
     }
+  ],
+  [
+    NewsSource.Haaretz,
+    {
+      name: 'הארץ',
+      color: '#24a1f4'
+    }
   ]
 ]);
 
