@@ -5,5 +5,7 @@ export enum NewsSource {
   Ynet = "Ynet",
   YnetReports = "YnetReports",
   Calcalist = "Calcalist",
-  CalcalistReports = "CalcalistReports"
+  CalcalistReports = "CalcalistReports",
+  Walla = "Walla",
+  WallaReports = "WallaReports"
 }

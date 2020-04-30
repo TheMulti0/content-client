@@ -54,6 +54,20 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
       name: 'מבזקי כלכליסט',
       color: '#D01E25'
     }
+  ],
+  [
+    NewsSource.Walla,
+    {
+      name: 'וואלה! חדשות',
+      color: '#24a1f4'
+    }
+  ],
+  [
+    NewsSource.WallaReports,
+    {
+      name: 'וואלה! מבזקים',
+      color: '#24a1f4'
+    }
   ]
 ]);
 
