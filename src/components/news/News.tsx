@@ -37,7 +37,7 @@ export default class News extends React.Component<any, NewsConsumerState> implem
 
     const defaultQuery: IQuery = {
       excludedSources: this.reportsSources,
-      maxResults: 10
+      maxResults: 0
     };
 
     this.state = {

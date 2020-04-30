@@ -75,6 +75,13 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
       name: 'הארץ',
       color: '#006382'
     }
+  ],
+  [
+    NewsSource.N0404,
+    {
+      name: '0404',
+      color: '#FFA800'
+    }
   ]
 ]);
 
