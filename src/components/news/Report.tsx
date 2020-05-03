@@ -37,7 +37,7 @@ export default function Report(props: { item: INewsItem }) {
       {
         image !== null &&
         <Grid item>
-          <img src={ image } alt={ title } className="image" />
+          <img src={ image } alt={ title } className="reportImage" />
         </Grid>
       }
 

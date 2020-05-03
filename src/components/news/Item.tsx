@@ -24,7 +24,7 @@ export default class Item extends React.Component<Props> {
     const image = item.imageUrl;
 
     return (
-      <Grid container direction="column" spacing={ 1 } className="text-right item">
+      <Grid container direction="column" spacing={ 1 } className="text-right">
 
         <Grid item container direction="row" alignItems="center">
 
@@ -36,12 +36,12 @@ export default class Item extends React.Component<Props> {
 
         </Grid>
 
-        <Grid item container spacing={ 3 } justify="flex-end" className="content">
+        <Grid item container spacing={ 3 } justify="flex-start" className="content itemContainer">
 
           {
             image !== null &&
             <Grid item>
-              <img src={ image } alt={ title } className="image" />
+              <img src={ image } alt={ title } className="itemImage" />
             </Grid>
           }
 

@@ -1,19 +1,19 @@
-.item {
+.itemContainer {
     max-width: 650pt;
-}
-
-.image {
-    width: 125pt;
-}
-.content {
     flex-direction: row;
 }
-@media (max-width: 450pt) {
-    .image {
-        max-width: 100% !important;
-    }
-    .content {
+.itemImage {
+    min-width: 160pt;
+    max-width: 160pt;
+}
+
+@media (max-width: 500pt) {
+    .itemContainer {
         flex-direction: column;
+    }
+    .itemImage {
+        min-width: 230pt;
+        max-width: 230pt;
     }
 }
 
