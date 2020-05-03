@@ -89,6 +89,13 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
       name: '0404',
       color: '#FFA800'
     }
+  ],
+  [
+    NewsSource.Galatz,
+    {
+      name: 'גל"צ',
+      color: '#071284'
+    }
   ]
 ]);
 
