@@ -65,7 +65,7 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
   [
     NewsSource.WallaReports,
     {
-      name: 'וואלה! מבזקים',
+      name: 'מבזקי וואלה!',
       color: '#24a1f4'
     }
   ],
@@ -94,6 +94,13 @@ const newsSourceBadges: Map<NewsSource, SourceBadge> = new Map<NewsSource, Sourc
     NewsSource.Galatz,
     {
       name: 'גל"צ',
+      color: '#071284'
+    }
+  ],
+  [
+    NewsSource.GalatzReports,
+    {
+      name: 'מבזקי גל"צ',
       color: '#071284'
     }
   ]

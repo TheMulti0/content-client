@@ -2,6 +2,7 @@ export enum NewsSource {
   Calcalist = "Calcalist",
   CalcalistReports = "CalcalistReports",
   Galatz = "Galatz",
+  GalatzReports = "GalatzReports",
   Haaretz = "Haaretz",
   Kan = "Kan",
   Mako = "Mako",
