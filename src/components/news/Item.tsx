@@ -5,6 +5,7 @@ import { Grid, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
 import { IAuthor } from "../../models/IAuthor";
 import SourceChip from './SourceChip';
+import { DateFormatter } from "./DateFormatter";
 
 interface Props {
   item: INewsItem;
@@ -73,7 +74,7 @@ export default class Item extends React.Component<Props> {
 
             <Grid item>
               <Typography variant="caption" color="textSecondary">
-                { this.getDate(date) }, בשעה { this.getTime(date) }
+                { DateFormatter.formatDateTime(date) }
               </Typography>
             </Grid>
 
@@ -83,34 +84,5 @@ export default class Item extends React.Component<Props> {
 
       </Grid>
     );
-  }
-
-  getDate(date: Date): string {
-    // TODO Make sure item.date and date.now share the same year, month, week
-
-    const now = new Date(Date.now());
-    let today = now.getDay();
-
-    const day = date.getDay();
-
-    if (day === today) {
-      return 'היום';
-    }
-    if (day === today - 1 || (day === 0 && today === 6)) {
-      return 'אתמול';
-    }
-
-    return date.toLocaleDateString();
-  }
-
-  getTime(date: Date): string {
-    const minutes = date.getMinutes();
-    let minutesString = minutes.toString();
-
-    if (minutes < 10) {
-      minutesString = `0${ minutesString }`;
-    }
-
-    return `${ date.getHours() }:${ minutesString }`
   }
 }
