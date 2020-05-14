@@ -1,7 +1,7 @@
 import './Item.css';
 import React from 'react';
 
-import { Grid, Typography } from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
 import { INewsItem } from "../../models/INewsItem";
 import { IAuthor } from "../../models/IAuthor";
 import SourceChip from './SourceChip';
@@ -21,7 +21,6 @@ export default class Item extends React.Component<Props> {
     const title = item.title;
     const authorName = author.name;
     const url = item.url;
-    const date = new Date(item.date);
     const image = item.imageUrl;
 
     return (
@@ -37,7 +36,7 @@ export default class Item extends React.Component<Props> {
 
         </Grid>
 
-        <Grid item container spacing={ 3 } justify="flex-start" className="content itemContainer">
+        <Grid item container spacing={ 2 } justify="flex-start" className="content itemContainer">
 
           {
             image !== null &&
@@ -58,6 +57,8 @@ export default class Item extends React.Component<Props> {
                 { title }
               </Typography>
             </Grid>
+
+            <Box className="flex-grow-1" />
 
             <Grid item>
               <Typography variant="body2" gutterBottom>
